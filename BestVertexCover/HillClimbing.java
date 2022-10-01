@@ -6,24 +6,28 @@ import java.io.*;
 
 public class HillClimbing extends Search{
     
+    //Goal: find a set with smallest error because if a set has an error of 0 then all edges are covered in graph. 
     public State hillClimbing(State startState){
+
         while(true){
+            //find error of current start state 
             State localOptimum=startState;
-            // given a state with vertices find all its neighbors then traverse 
-            int startStateError= getError(startState);
+            //initialize localoptimum error with current starting states error 
+            int localOptimumError= getError(startState);
 
             if(getVerboseOrCompactOutput()=='V'){
                 System.out.println("Neighbors");
             }
-            //intialize startState and error 
-            // traverse 
+
+            //intialize the list of nextStates or neighbors and for each one check if its error is less than the local optimum. if its less then set local optimum to nextState
             List<State> nextStateList= traverseNext(startState);
             for(State nextState : nextStateList){
                 if(getVerboseOrCompactOutput()=='V'){
                     print(nextState);
                 }
-                if(getError(nextState)< startStateError){
+                if(getError(nextState)< localOptimumError){
                     localOptimum=nextState;
+                    localOptimumError=getError(nextState);
                 }
             }
 
@@ -33,7 +37,9 @@ public class HillClimbing extends Search{
             if(localOptimum==startState){
                 return startState;
             }
+            //if we find a neighbor state that is less than current start state, set startstate to that localoptimum and then loop again to find neighbors of new start state (previously, the next state)
             startState=localOptimum;
+        
             if(getVerboseOrCompactOutput()=='V'){
                 System.out.print("\nMove to ");
                 print(startState);
@@ -176,6 +182,7 @@ public class HillClimbing extends Search{
             iscanner.close();
         } catch( FileNotFoundException fnfe){
             System.out.println("Input file was not found, please check path.");
+            System.exit(0);
         } catch (NoSuchElementException ne){
             System.out.println("File is missing some or all input information!");
             System.exit(0);

@@ -7,7 +7,6 @@ import BestVertexCover.model.State;
 import BestVertexCover.model.Vertex;
 import BestVertexCover.model.Edge;
 
-
 public class IterativeDeepening extends Search{
 
     public void iterativeDeepeningSearch(int budget, Character output){

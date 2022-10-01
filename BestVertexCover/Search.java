@@ -13,14 +13,19 @@ public class Search{
     protected List<Edge> edgeList=new ArrayList<>();
 
     public void createGraph(Scanner scanner){
-        String newVertex="";
+        String newVertex= "";
         while(scanner.hasNextLine()){
-            newVertex=scanner.next();
+            newVertex = scanner.next();
             if(!scanner.hasNextInt()){
                 break;
             }
             vertexMap.put(newVertex.charAt(0), new Vertex(newVertex.charAt(0), scanner.nextInt()));
         }
+        vertexList = new ArrayList<Vertex>(vertexMap.values());
+		edgeList.add(new Edge(vertexMap.get(newVertex.charAt(0)), vertexMap.get(scanner.next().charAt(0))));
+		while(scanner.hasNextLine()) {
+			edgeList.add(new Edge(vertexMap.get(scanner.next().charAt(0)), vertexMap.get(scanner.next().charAt(0))));
+		}
     }
     public Character getVerboseOrCompactOutput(){
         return output;
